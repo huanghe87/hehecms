@@ -72,6 +72,14 @@ return [
                 "<controller:\w+>/<action:\w+>"=>"<controller>/<action>"    
             ],
         ],
+        'mongodb' => [
+            'class' => '\yii\mongodb\Connection',
+            'dsn' => 'mongodb://10.115.1.166:25027,10.115.1.170:25027,10.115.1.173:25027/news_combx',
+            'options' => [
+                "username" => "pre_rw_news_combx",
+                "password" => "1fumkxOFXI1t"
+            ]
+        ],
     ],
     'as access' => [
         'class' => 'rbac\components\AccessControl',
