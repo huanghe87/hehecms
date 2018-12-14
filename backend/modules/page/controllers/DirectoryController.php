@@ -3,8 +3,8 @@
 namespace task\controllers;
 
 use Yii;
-use task\models\Job;
-use task\models\searchs\JobSearch;
+use task\models\Trigger;
+use task\models\searchs\TriggerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class JobController extends Controller
+class TriggerController extends Controller
 {
 
     /**
@@ -39,8 +39,9 @@ class JobController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new JobSearch;
+        $searchModel = new TriggerSearch;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+
         return $this->render('index', [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
@@ -66,13 +67,11 @@ class JobController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Job;
+        $model = new Trigger;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            $model->call_type = 1;
-            $model->start = 1;
             return $this->render('create', [
                     'model' => $model,
             ]);
@@ -117,7 +116,7 @@ class JobController extends Controller
     public function actionDeleteAll(){
         $data = Yii::$app->request->post();
         if($data){
-            $model = new Job;
+            $model = new Trigger;
             $count = $model->deleteAll(["in","id",$data['keys']]);
             if($count>0){
                 return json_encode(['code'=>200,"msg"=>"删除成功"]);
@@ -138,7 +137,7 @@ class JobController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Job::findOne($id)) !== null) {
+        if (($model = Trigger::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

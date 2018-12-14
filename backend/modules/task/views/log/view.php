@@ -9,25 +9,66 @@ LayuiAsset::register($this);
         'model' => $model,
 		'options' => ['class' => 'layui-table'],
         'attributes' => [
+            '_id',
             'req_id',
             'req_body',
-            'even_time',
             'appname',
             'topic',
             'job_key',
-            'author',
-            'email',
-            'mobile',
-            'mq_push_time',
-            'mq_push_result',
-            'mq_pop_time',
-            'mq_pop_result',
-            'exec_end_time',
-            'exec_result',
+            [
+                'attribute' => 'even_time',
+                'value' => function($model){
+                    return date("Y-m-d H:i:s",$model->even_time);
+                }
+            ],
+            [
+                'attribute' => 'mq_push_time',
+                'value' => function($model){
+                    return date("Y-m-d H:i:s",$model->mq_push_time);
+                }
+            ],
+            [
+                'attribute' => 'mq_push_result',
+                'value' => function($model){
+                    return $model->getStatus($model->mq_push_result);
+                }
+            ],
+            [
+                'attribute' => 'mq_pop_time',
+                'value' => function($model){
+                    return date("Y-m-d H:i:s",$model->mq_pop_time);
+                }
+            ],
+            [
+                'attribute' => 'mq_pop_result',
+                'value' => function($model){
+                    return $model->getStatus($model->mq_pop_result);
+                }
+            ],
+            [
+                'attribute' => 'exec_end_time',
+                'value' => function($model){
+                    return date("Y-m-d H:i:s",$model->exec_end_time);
+                }
+            ],
+            [
+                'attribute' => 'exec_result',
+                'value' => function($model){
+                    return $model->getStatus($model->exec_result);
+                }
+            ],
             'exec_reply',
             'error',
             'client_ip',
-            'update_time',
+            'author',
+            'email',
+            'mobile',
+            [
+                'attribute' => 'update_time',
+                'value' => function($model){
+                    return date("Y-m-d H:i:s",$model->update_time);
+                }
+            ],
         ],
 		'template' => '<tr><th width="100px">{label}</th><td>{value}</td></tr>', 
     ])

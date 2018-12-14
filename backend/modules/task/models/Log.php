@@ -24,7 +24,7 @@ class Log extends \yii\mongodb\ActiveRecord {
      * @inheritdoc
      */
     public static function collectionName() {
-        return ['news_combx', 'combx_log'];
+        return 'combx_log';
     }
 
     /**
@@ -73,7 +73,7 @@ class Log extends \yii\mongodb\ActiveRecord {
             'req_id' => '请求ID',
             'req_body' => '请求体',
             'even_time' => '调度开始时间',
-            'appname' => '执行器',
+            'appname' => '执行器KEY',
             'topic' => '队列',
             'job_key' => '任务KEY',
             'author' => '负责人',
@@ -90,6 +90,15 @@ class Log extends \yii\mongodb\ActiveRecord {
             'client_ip' => '执行器ip',
             'update_time' => '更新时间',
         ];
+    }
+
+    public function getStatus($status) {
+        $statusText = array(
+            '-1' => '未开始',
+            '0' => '失败',
+            '1' => '成功',
+        );
+        return empty($statusText[$status])?'未知':$statusText[$status];
     }
 
 }
